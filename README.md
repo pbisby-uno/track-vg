@@ -10,10 +10,22 @@ When adding games, to start with the user can input some basic information such 
 
 ### MVP
 - Create a user account
-- Add games
+- Add, remove, update games
 - View collection
 
 ### Stretch Goals
 - Custom lists
 - Wishlist
 - Stats related to your games collection and the information you provide about playing those games.
+
+### Domain Model
+``` mermaid
+erDiagram
+          USER }|--|{ GAME : ""
+          USER ||--|{ REVIEW : ""
+          GAME }|--|| GENRE : ""
+          RATING ||--|{ GAME : ""
+          REVIEW ||--|| GAME : ""
+          STATUS ||--|{ GAME : ""
+          PLATFORM ||--|| GAME : ""
+```

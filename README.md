@@ -21,11 +21,11 @@ When adding games, to start with the user can input some basic information such 
 ### Domain Model
 ``` mermaid
 erDiagram
-          USER }|--|{ GAME : ""
-          USER ||--|{ REVIEW : ""
-          GAME }|--|| GENRE : ""
-          RATING ||--|{ GAME : ""
+          USER ||--|| GAME : ""
+          USER ||--|| REVIEW : ""
+          GAME ||--|| GENRE : ""
+          RATING ||--|| GAME : ""
           REVIEW ||--|| GAME : ""
-          STATUS ||--|{ GAME : ""
+          STATUS ||--|| GAME : ""
           PLATFORM ||--|| GAME : ""
 ```

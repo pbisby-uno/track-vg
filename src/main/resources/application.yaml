@@ -1,0 +1,71 @@
+spring:
+  application:
+    name: track-vg
+  datasource:
+    username: user
+    password: password
+    url: jdbc:postgresql://localhost:5432/postgres
+  jpa:
+    database-platform: trackvg
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+          time_zone: UTC
+        temp:
+          use_jdbc_metadata_defaults: false
+  cloud:
+    discovery:
+      client:
+        composite-indicator:
+          enabled: false
+
+logging:
+  level:
+    web: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "beans, health, info, metrics"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    mail:
+      enabled: false
+
+server:
+  port: 8080
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+debug: true
+
+logging:
+  level:
+    root: INFO
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:postgresql://db:5432/postgres
+  devtools:
+    add-properties: false

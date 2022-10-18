@@ -13,4 +13,9 @@ import lombok.Setter;
 @Setter
 public class Game {
 
+  private int id;
+  private Title title;
+  private Platform platform;
+  private Genre genre;
+
 }

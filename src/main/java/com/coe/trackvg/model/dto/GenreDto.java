@@ -1,4 +1,4 @@
-package com.coe.trackvg.model.entity;
+package com.coe.trackvg.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class IdDescription {
+public class GenreDto {
 
   private int id;
   private String description;

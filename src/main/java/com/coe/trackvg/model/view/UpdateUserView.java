@@ -12,18 +12,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class GameView {
+public class UpdateUserView {
 
-  @JsonProperty
-  private int id;
+  @JsonProperty("username")
+  private String username;
 
-  @JsonProperty
-  private TitleView title;
+  @JsonProperty("password")
+  private String password;
 
-  @JsonProperty
-  private PlatformView platform;
-
-  @JsonProperty
-  private GenreView genre;
+  @JsonProperty("enabled")
+  private boolean enabled;
 
 }

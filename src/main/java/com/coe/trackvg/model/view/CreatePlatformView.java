@@ -12,18 +12,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class GameView {
+public class CreatePlatformView {
 
-  @JsonProperty
-  private int id;
-
-  @JsonProperty
-  private TitleView title;
-
-  @JsonProperty
-  private PlatformView platform;
-
-  @JsonProperty
-  private GenreView genre;
+  @JsonProperty("platform")
+  private String platform;
 
 }

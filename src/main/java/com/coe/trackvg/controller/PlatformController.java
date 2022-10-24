@@ -1,8 +1,11 @@
 package com.coe.trackvg.controller;
 
+import com.coe.trackvg.mapper.Mapper;
+import com.coe.trackvg.model.dto.CreatePlatformDto;
+import com.coe.trackvg.model.dto.PlatformDto;
 import com.coe.trackvg.model.view.CreatePlatformView;
 import com.coe.trackvg.model.view.PlatformView;
-import java.util.Collections;
+import com.coe.trackvg.service.PlatformService;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,20 +29,31 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class PlatformController {
 
+  private final PlatformService platformService;
+  private final Mapper mapper;
+
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<PlatformView>> getPlatforms() {
 
-    return ResponseEntity.ok(Collections.emptyList());
+    final List<PlatformDto> platformDtoList = platformService.getPlatforms();
+
+    return platformDtoList.isEmpty()
+        ? ResponseEntity.noContent().build()
+        : ResponseEntity.ok(mapper.map(platformDtoList, PlatformView.class));
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<HttpStatus> createPlatform(@Valid @RequestBody CreatePlatformView createPlatformView) {
+
+    platformService.createPlatform(mapper.map(createPlatformView, CreatePlatformDto.class));
 
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
   @DeleteMapping("/{platformId}")
   public ResponseEntity<HttpStatus> deletePlatform(@PathVariable final int platformId) {
+
+    platformService.deletePlatform(platformId);
 
     return ResponseEntity.noContent().build();
   }

@@ -1,8 +1,11 @@
 package com.coe.trackvg.controller;
 
+import com.coe.trackvg.mapper.Mapper;
+import com.coe.trackvg.model.dto.CreateGenreDto;
+import com.coe.trackvg.model.dto.GenreDto;
 import com.coe.trackvg.model.view.CreateGenreView;
 import com.coe.trackvg.model.view.GenreView;
-import java.util.Collections;
+import com.coe.trackvg.service.GenreService;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,20 +29,31 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class GenreController {
 
+  private final GenreService genreService;
+  private final Mapper mapper;
+
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<GenreView>> getGenres() {
 
-    return ResponseEntity.ok(Collections.emptyList());
+    final List<GenreDto> genreDtoList = genreService.getGenres();
+
+    return genreDtoList.isEmpty()
+        ? ResponseEntity.noContent().build()
+        : ResponseEntity.ok(mapper.map(genreDtoList, GenreView.class));
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<HttpStatus> createGenre(@Valid @RequestBody CreateGenreView createGenreView) {
+
+    genreService.createGenre(mapper.map(createGenreView, CreateGenreDto.class));
 
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
   @DeleteMapping("/{genreId}")
   public ResponseEntity<HttpStatus> deleteGenre(@PathVariable final int genreId) {
+
+    genreService.deleteGenre(genreId);
 
     return ResponseEntity.noContent().build();
   }
